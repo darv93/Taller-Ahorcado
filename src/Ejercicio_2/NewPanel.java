@@ -20,14 +20,14 @@ import javax.swing.Timer;
  *
  * @author Diego
  */
-public class NewPanel extends JPanel implements ActionListener,MouseListener{
+public class NewPanel extends JPanel implements ActionListener,MouseListener {
 
     private Timer timer;
     private int x;
     private int secuencia;
 
     public NewPanel() {
-   
+        this.addMouseListener(this);
         this.timer = new Timer(25,this);
         this.timer.start();
         this.x=0;
@@ -40,7 +40,9 @@ public class NewPanel extends JPanel implements ActionListener,MouseListener{
         super.paintComponent(g);
         Image ahorcado = loadImage("ahorcado.png");
         Image abecedario = loadImage("abecedario-minusculas.jpg");
-        g.drawImage(ahorcado, 25, 25, 25+136, 25+205,(this.secuencia*136),0,(this.secuencia*136)+136,204,this);
+        Image fondo = loadImage("fondo.png");
+        g.drawImage(fondo, 0, 0, 848, 480, this);
+        g.drawImage(ahorcado, x, 25, 25+136, 25+205,(this.secuencia*136),0,(this.secuencia*136)+136,204,this);
         g.drawImage(abecedario, 300, 50, this);
         g.setColor(Color.red);
         g.fillRect(x, 75, 25, 50);
@@ -60,12 +62,13 @@ public class NewPanel extends JPanel implements ActionListener,MouseListener{
         if(this.secuencia==6){
             this.secuencia=0;
         }else{
-        this.secuencia++;
+            this.secuencia++;
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("click");
     }
 
     @Override
